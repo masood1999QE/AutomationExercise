@@ -689,6 +689,82 @@ public class AppTest extends BaseTest3{
     	
     
     }
+    
+    @Test
+    public void testCases_16() {
+    	WebDriver driver=getDriver();
+    	LandingPage lp=new LandingPage(driver);
+    	String title=lp.verifyHomePage();
+    	Assert.assertTrue(title.contains("Automation Exercise"));
+    	
+    	lp.clickSignUpOrLoginBtn();
+    	String loginName="Masood";
+    	String loginEmail="Masood1@gmail.com";
+    	String password="masood";
+    	LoginPage loginP=new LoginPage(driver);
+    	
+    	Assert.assertEquals(loginP.verifyLoginText(), "Login to your account");
+    	loginP.enterLoginEmailId(loginEmail);
+    	loginP.enterLoginPassword(password);
+    	loginP.clickLoginBtn();
+    	
+    	//Home Page
+    	HomePage homeP=new HomePage(driver);
+    	Assert.assertEquals(homeP.verifyUserIdName(), "Logged in as "+loginName); 
+    
+    	
+    	String productName="Beautiful Peacock Blue Cotton Linen Saree";
+    	homeP.addToCartProduct(productName);
+    	homeP.clickContinueShopping();
+    	homeP.clickCartButton();
+    	
+    	CartPage cp=new CartPage(driver);
+    	String cartPageTitle= cp.verifyHomePage();
+    	Assert.assertTrue(cartPageTitle.contains("Checkout"));
+    	
+    	cp.clickProceedToCheckout();
+    	
+    	String Comment="Try to Deiver the order by monday";
+    	
+    	CheckoutPage cop=new CheckoutPage(driver);
+    	cop.verifyAddressAndReviewOrderAreSame();
+    	cop.typeComment(Comment);
+   
+    	cop.clickplaceOrderBtn();
+    	
+
+    	PaymentPage pp=new PaymentPage(driver);
+    	String cardHolderName="Masood";
+    	String cardNumber="8787 8977 7863";
+    	String cardCVC="555";
+    	String cardExpiryMonth="10";
+    	String cardExpiryYear="2026";
+    	
+    	pp.typeCardHolderName(cardHolderName);
+    	pp.typeCardNumber(cardNumber);
+    	pp.typeCardCVC(cardCVC);
+    	pp.typeCardExpiryMonth(cardExpiryMonth);
+    	pp.typeCardExpiryYear(cardExpiryYear);
+
+    	String orderSuccessMessage=pp.clickPayAndConfirmOrderMessage();
+    	Assert.assertTrue(orderSuccessMessage.contains("successfully!"));
+
+    	
+    	PaymentDonePage pdp=new PaymentDonePage(driver);
+    	String orderConfimationMessage=pdp.verifyOrderConfirmationMessage();
+    	Assert.assertEquals(orderConfimationMessage, "Congratulations! Your order has been confirmed!");
+    	pdp.clickContinueBtn();
+    	
+    	HomePage hp=new HomePage(driver); 
+    	hp.deleteAccnt();
+    	
+    	//Account Deleted
+    	DeletedAccountPage deletedPage=new DeletedAccountPage(driver);
+    	Assert.assertEquals(deletedPage.verifyAccntDeletedMsg(),"ACCOUNT DELETED!");
+    	deletedPage.clickContinue();
+    	
+
+    }
 
     
     //This test case helps to demonstrate the generic way of adding the products
@@ -706,9 +782,12 @@ public class AppTest extends BaseTest3{
     	
     	String productName="Pure Cotton V-Neck T-Shirt";
     	pp.addToCartProduct(productName);
+    	pp.clickContinueShopping();
     	
+    	String productName1="Beautiful Peacock Blue Cotton Linen Saree";
+    	pp.addToCartProduct(productName1);
+    	pp.clickContinueShopping();
     	
-    	
-    	
+ 	
     }
 }
