@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Parallel Suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" parallel="methods" name="Parallel Test(failed)">
+    <classes>
+      <class name="SeleniumFrameWork.MavenProject.AppTest">
+        <methods>
+          <include name="testCases_03"/>
+          <include name="LaunchApp"/>
+          <include name="SetupApp"/>
+          <include name="testCases_10"/>
+          <include name="testCases_08"/>
+          <include name="extentsetup"/>
+          <include name="testCases_06"/>
+          <include name="testCases_09"/>
+          <include name="clearExtentReport"/>
+          <include name="quitApp"/>
+          <include name="testCases_04"/>
+          <include name="testCases_05"/>
+        </methods>
+      </class> <!-- SeleniumFrameWork.MavenProject.AppTest -->
+    </classes>
+  </test> <!-- Parallel Test(failed) -->
+</suite> <!-- Failed suite [Parallel Suite] -->
