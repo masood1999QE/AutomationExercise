@@ -8,8 +8,8 @@
           <include name="clearExtentReport"/>
           <include name="quitAppResults"/>
           <include name="extentsetup"/>
-          <include name="testCases_Demo"/>
           <include name="setupTestResults"/>
+          <include name="testCases_18"/>
           <include name="SetupApp"/>
         </methods>
       </class> <!-- SeleniumFrameWork.MavenProject.AppTest -->

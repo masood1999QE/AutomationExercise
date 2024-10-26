@@ -116,12 +116,42 @@ public class CartPage extends Commons{
 	  	
   }
    
+   public boolean checkProductDetails(String productName) {
+	   	
+	   String productDetails=""; 
+	   boolean checkProduct=false;
+	   System.out.println("Before checkProduct:"+ checkProduct);
+	   boolean waitCheck= waitForElementToDisappear(getAddedProductsDetailsList.get(0));
+	   for (WebElement ele:getAddedProductsDetailsList)
+	   {		 
+		   if(!waitCheck)
+		   {
+			   System.out.println("Element is displayed");
+			   
+			   if(ele.getAttribute("class").contains("cart_description"))
+			   	{
+			   		System.out.println(ele.getText());
+			   		productDetails=ele.getText();
+			   	}
+			   	
+			   	if((!productDetails.isEmpty()) && (productDetails.contains(productName)))
+			   	{
+			   		System.out.println("element Found");
+			   		checkProduct=true;
+			   	}
+		   }	
+	   	
+	   	}
+	   
+	   System.out.println("After checkProduct:"+ checkProduct);
+	
+	  	return checkProduct;
+  }
+   
    public void deleteAddedProductDetails(String productName) {
 	   String productDetails=""; 
 	   for (WebElement ele:getAddedProductsDetailsList)
 	   {
-	   	
-		    
 		   	if(ele.getAttribute("class").contains("cart_description"))
 		   	{
 		   		System.out.println(ele.getText());

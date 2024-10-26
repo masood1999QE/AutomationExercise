@@ -778,7 +778,8 @@ public class AppTest extends BaseTest3{
     	String productName="Pure Cotton V-Neck T-Shirt";
     	lp.addToCartProduct(productName);
     	lp.clickContinueShopping();
-    	lp.clickCartButton();
+    	
+      	lp.clickCartButton();
     	
     	//Cart Page
     	CartPage cp=new CartPage(driver);
@@ -786,7 +787,42 @@ public class AppTest extends BaseTest3{
     	Assert.assertTrue(cartPageTitle.contains("Checkout"));
     	
     	cp.deleteAddedProductDetails(productName);
+
+     	boolean isProductAvailable=cp.checkProductDetails(productName);
+     	System.out.println("isProductAvailable:"+isProductAvailable);
+    	Assert.assertEquals(isProductAvailable, false);
     	
+    }
+    
+    @Test
+    public void testCases_18() {
+    	WebDriver driver=getDriver();
+    	LandingPage lp=new LandingPage(driver);
+    	String title=lp.verifyHomePage();
+    	Assert.assertTrue(title.contains("Automation Exercise"));
+    	
+    	HomePage hp=new HomePage(driver);
+    	Assert.assertEquals(hp.verifyCategoryIsVisible(),"CATEGORY");
+    	String categoryName="WOMEN";
+    	String clothesName="Dress";
+    	hp.clickOnCategoryClothes(categoryName,clothesName);
+    	
+    	
+    	
+    	CategoryProductsPage  cpp=new CategoryProductsPage (driver);
+    	String selectedCategoryTitle=cpp.verifySelectedCategoryClothesName();
+    	System.out.println("selectedCategoryTitle:"+selectedCategoryTitle);
+    	System.out.println("category name is displayed:"+selectedCategoryTitle.contains(categoryName));
+    	System.out.println("clothes name is displayed:"+selectedCategoryTitle.contains(clothesName));
+    	Assert.assertTrue(selectedCategoryTitle.contains(categoryName) && selectedCategoryTitle.contains(clothesName.toUpperCase()));
+    	
+    	String categoryName1="MEN";
+    	String clothesName1="Jeans";
+    	hp.clickOnCategoryClothes(categoryName1,clothesName1);
+    	selectedCategoryTitle=cpp.verifySelectedCategoryClothesName();
+    	System.out.println("selectedCategoryTitle:"+selectedCategoryTitle);
+    	System.out.println("clothes name is displayed:"+selectedCategoryTitle.contains(clothesName));
+    	Assert.assertTrue(selectedCategoryTitle.contains(categoryName1) && selectedCategoryTitle.contains(clothesName1.toUpperCase()));
     	
     }
     

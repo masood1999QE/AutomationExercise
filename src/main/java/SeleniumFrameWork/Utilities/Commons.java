@@ -51,6 +51,20 @@ public class Commons {
 		wait.until(ExpectedConditions.visibilityOf(ele));
 	}
 	
+	public Boolean waitForElementToDisappear(WebElement ele) {
+		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(5));
+		boolean flag=false;
+		try {
+			wait.until(ExpectedConditions.invisibilityOf(ele));
+			flag=true;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Element is found and not dispappearing!!!");
+		}
+		return flag;
+	}
+	
 	public void waitForUrl(String url) 
 	{
 		WebDriverWait wait =new WebDriverWait(driver,Duration.ofSeconds(10));

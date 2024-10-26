@@ -43,6 +43,12 @@ public class HomePage extends Commons{
 	@FindBy(css="li a[href*='/view_cart']")
 	WebElement cartIcon;
 	
+	@FindBy(xpath="//h2[text()='Category']")
+	WebElement CategoryElement;
+	
+	@FindBy(xpath="//div[@class='panel-heading']//a")
+	List<WebElement> CategorySubElements;		
+	
 	public void logout() {
     	ClickBtn(logoutBtn);
     }
@@ -92,5 +98,27 @@ public class HomePage extends Commons{
 	    public void clickCartButton() {
 	    	ClickBtn(cartIcon);
 	    }
+	    
+	    public String verifyCategoryIsVisible() {
+	    	return CategoryElement.getText();
+	    }
+	    
+	    public void clickOnCategoryClothes(String categoryName,String clothesName)
+	    {
+	    	for(WebElement ele:CategorySubElements)
+	    	{
+	    		System.out.println("Element:"+ele.getAttribute("innerText"));
+	    		if(ele.getAttribute("innerText").trim().equalsIgnoreCase(categoryName))
+	    		{
+	    			System.out.println("Element Found:"+ele.getAttribute("innerText"));
+	    			ele.click();
+	    			WebElement element= ele.findElement(By.xpath(".//../../following-sibling::div//li/a[contains(text(),'"+clothesName+"')]"));
+	    			waitForElementToBeClickable(element);
+	    			element.click();
+	    			break;
+	    		}
+	    	}
+	    }
+	    
 	
 }
