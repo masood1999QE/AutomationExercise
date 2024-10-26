@@ -765,7 +765,30 @@ public class AppTest extends BaseTest3{
     	
 
     }
-
+    
+    @Test
+    public void testCases_17() {
+    	
+    	WebDriver driver=getDriver();
+    	LandingPage lp=new LandingPage(driver);
+    	String title=lp.verifyHomePage();
+    	Assert.assertTrue(title.contains("Automation Exercise"));
+    	
+    	//Add products to the cart
+    	String productName="Pure Cotton V-Neck T-Shirt";
+    	lp.addToCartProduct(productName);
+    	lp.clickContinueShopping();
+    	lp.clickCartButton();
+    	
+    	//Cart Page
+    	CartPage cp=new CartPage(driver);
+    	String cartPageTitle= cp.verifyHomePage();
+    	Assert.assertTrue(cartPageTitle.contains("Checkout"));
+    	
+    	cp.deleteAddedProductDetails(productName);
+    	
+    	
+    }
     
     //This test case helps to demonstrate the generic way of adding the products
     @Test

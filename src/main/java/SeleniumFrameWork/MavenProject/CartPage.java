@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -116,6 +116,28 @@ public class CartPage extends Commons{
 	  	
   }
    
+   public void deleteAddedProductDetails(String productName) {
+	   String productDetails=""; 
+	   for (WebElement ele:getAddedProductsDetailsList)
+	   {
+	   	
+		    
+		   	if(ele.getAttribute("class").contains("cart_description"))
+		   	{
+		   		System.out.println(ele.getText());
+		   		productDetails=ele.getText();
+		   	}
+		   	
+		   	if((productDetails.contains(productName)) && ele.getAttribute("class").contains("cart_delete"))
+		   	{
+		   		System.out.println("element got clicked");
+		   		ele.findElement(By.xpath(".//a")).click();
+		   		//ele.click();
+		   	}
+	   	
+	   	}
+	   
+   }
    public String getFirstProductQuantity() 
    {
 	   String quantity="";
