@@ -826,6 +826,10 @@ public class AppTest extends BaseTest3{
     	
     }
     
+    @Test
+    public void testCases_19() {
+    	
+    }
     //This test case helps to demonstrate the generic way of adding the products
     @Test
     public void testCases_Demo() {
