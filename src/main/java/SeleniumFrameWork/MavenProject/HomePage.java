@@ -3,9 +3,12 @@ package SeleniumFrameWork.MavenProject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -47,7 +50,16 @@ public class HomePage extends Commons{
 	WebElement CategoryElement;
 	
 	@FindBy(xpath="//div[@class='panel-heading']//a")
-	List<WebElement> CategorySubElements;		
+	List<WebElement> CategorySubElements;
+	
+	@FindBy(xpath="//h2[contains(text(),'recommended items')]")
+	WebElement recommendedItemsText;
+	
+	@FindBy(xpath="//h2[contains(text(),'recommended items')]/following-sibling::div//div[contains(@class,'item')]/div")
+	List<WebElement> recommendedProductLists;
+	
+	@FindBy(css="a[class*='recommended-item-control'][data-slide='next']")
+	WebElement rightCarouselBtn;
 	
 	public void logout() {
     	ClickBtn(logoutBtn);
@@ -120,5 +132,59 @@ public class HomePage extends Commons{
 	    	}
 	    }
 	    
-	
+	    public void moveToRecommendedItemsSection() {
+	    	Actions act=new Actions(driver);
+	    	act.moveToElement(recommendedItemsText).build().perform();
+	    }
+	    
+	    public String verifyRecommendedItemsText() {
+	    	
+	    	return recommendedItemsText.getText();
+	    	
+	    }
+
+	    public void getRecommendedProductList() {
+	    	
+	    	HashMap<String,Integer> recommendedproductsMap=new HashMap<String,Integer>();
+	    	String productName="";
+	    	System.out.println("size:"+recommendedProductLists.size());
+	    	Actions act=new Actions(driver);
+	    	act.scrollByAmount(0, 400).build().perform();
+	    	for(WebElement ele:recommendedProductLists)
+	    	{
+	    		//System.out.println("Before Try ProductName:"+ele.getTagName());
+	    		//System.out.println("tagName:"+ele.findElement(By.xpath(".//p")).getTagName());
+	    		System.out.println("text:"+ele.findElement(By.xpath(".//p")).getAttribute("innerText"));
+	    		try {
+	    		productName=ele.findElement(By.xpath(".//p")).getAttribute("innerText").trim();
+	    		System.out.println("Inside Try");
+	    		System.out.println("Inside Try ProductName:"+productName);
+	    		}
+	    		catch(Exception e)
+	    		{
+	    			System.out.println("Inside Catch");
+	    			rightCarouselBtn.click();
+	    			productName=ele.findElement(By.xpath(".//p")).getAttribute("innerText").trim();
+	    		}		
+		    	
+		    	System.out.println("ProductName:"+productName);
+		    	WebElement element= ele.findElement(By.xpath(".//a[contains(text(),'Add to cart')]"));
+		    	//WebElement element= ele.findElement(By.xpath(".//a"));
+		    	System.out.println("A Tag::"+element.getTagName());
+		    	System.out.println("A tag Id:"+element.getAttribute("data-product-id"));
+		    	
+		    	//waitForElementToBeClickable(element);
+		    	System.out.println("A tag Size"+element.getSize());
+		    	System.out.println("A Tag::"+element.getTagName());
+		    	System.out.println("A Class::"+element.getAttribute("class"));
+		    	JavascriptExecutor js =(JavascriptExecutor) driver;
+//		    	js.executeScript("arguments[0].scrollIntoView(true)",element);
+		    	js.executeScript("arguments[0].click()",element );
+		    	//element.click();
+		    	recommendedproductsMap.put(productName, recommendedproductsMap.getOrDefault(productName, 0)+1);
+		    	clickContinueShopping();
+	    		
+	    	}
+	    	
+	    }
 }

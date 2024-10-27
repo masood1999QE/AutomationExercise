@@ -6,10 +6,10 @@
       <class name="SeleniumFrameWork.MavenProject.AppTest">
         <methods>
           <include name="clearExtentReport"/>
+          <include name="testCases_22"/>
           <include name="quitAppResults"/>
           <include name="extentsetup"/>
           <include name="setupTestResults"/>
-          <include name="testCases_18"/>
           <include name="SetupApp"/>
         </methods>
       </class> <!-- SeleniumFrameWork.MavenProject.AppTest -->

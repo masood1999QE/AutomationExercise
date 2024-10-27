@@ -69,6 +69,13 @@ public class ProductsPage extends Commons{
 	@FindBy(css="div[class='features_items'] div[class*='col'] div[class*='text-center'] p")
 	List<WebElement> productsList;
 	
+	@FindBy(xpath="//h2[contains(text(),'Brands')]")
+	WebElement BrandElement;
+	
+	@FindBy(xpath="//a[text()[contains(.,'Allen Solly Junior')]]/../..")
+	List<WebElement> BrandsNameList;
+	
+
 	
     public String verifyProductsPage() {
     	return driver.getTitle();
@@ -95,13 +102,15 @@ public class ProductsPage extends Commons{
     	ClickBtn( seacrhBtn);
     }
     
-    public void getTheSearchedProducstInfo(String productName) {
-    	
+    public List<String> getTheSearchedProducstInfo(String productName) {
+    	List<String> addSearchProductList=new ArrayList<>();
     	for(WebElement productInfo:searchProductLists) {
     		
     		System.out.println(productInfo.getText());
-    		
+    		addSearchProductList.add(productInfo.getText());
     	}
+    	
+    	return addSearchProductList;
     	
     }
     
@@ -161,5 +170,71 @@ public class ProductsPage extends Commons{
 		   }
 	   }
    }
+  
+   public String verifyBrandTextIsVisible()
+   {
+	   return BrandElement.getText();
+   }
+   
+   public void clickOnBrandName(String BrandName)
+   {
+	   
+	   for(WebElement ele:BrandsNameList)
+	   {
+		   WebElement element=ele.findElement(By.xpath(".//a[text()[contains(.,'"+BrandName+"')]]"));
+		   System.out.println("Element Brand:"+element.getText());
+		   if(element.getText().trim().contains(BrandName.toUpperCase())) {
+			   element.click();
+		   }
+	   }
+   }
+   
+   
+   public void addToCartSearchProducts(String searchProductName) {
+	   
+	   System.out.println("searchProductName:"+searchProductName);
+	   for(WebElement ele:productsList)
+	   {
+		   System.out.println("Before searchProductName FIND:"+ele.getText());
+		   if(ele.getText().toLowerCase().contains(searchProductName.toLowerCase()))
+		   {
+			   System.out.println("searchProductName  Found:"+ele.getText());
+			   
+			   System.out.println("Ele tag"+ ele.getTagName());
+			   
+		    	WebElement AddCartElement= ele.findElement(By.xpath(".//parent::div/following-sibling::div //a"));
+		    	System.out.println(AddCartElement.getTagName()); 
+		    	System.out.println("Attribute:"+AddCartElement.getAttribute("class"));
+		    	
+		    	Actions act=new Actions(driver);
+		    	//act.scrollByAmount(0, 800);
+		    	act.moveToElement(ele).moveToElement(AddCartElement).scrollToElement(AddCartElement)
+		    	.build().perform();
+		    		
+		    	waitForElementToBeClickable(AddCartElement);
+		    	AddCartElement.click();
+		    	clickContinueShopping();
+		    	
+		   }
+	   }
+   }
+   
+   public void clickOnViewProduct(String productName)
+   {
+	   for(WebElement ele:productsList)
+	   {
+		   System.out.println("productName:"+productName+" Found Element is :"+ele.getText());
+		   System.out.println("Check:"+ele.getText().trim().toLowerCase().equalsIgnoreCase(productName.toLowerCase().trim()));
+		   boolean flag=ele.getText().trim().toLowerCase().equalsIgnoreCase(productName.toLowerCase().trim());
+		   if(flag)
+		   {
+			   System.out.println("Element is Found :"+ele.getText());
+			   WebElement element= ele.findElement(By.xpath(".//../../following-sibling::div//*[text()='View Product']"));
+			   element.click();
+			   break;
+		   }		 
+	   }
+   }
+
   
 }

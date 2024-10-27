@@ -2,7 +2,9 @@ package SeleniumFrameWork.MavenProject;
 
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -33,7 +35,7 @@ public class AppTest extends BaseTest3{
 	}
 	
 	
-    @Test(enabled=false)
+    @Test
     public void testCases_01() {
     	WebDriver driver=getDriver();
     	LandingPage lp=new LandingPage(driver);
@@ -97,13 +99,13 @@ public class AppTest extends BaseTest3{
     	//Home Page
     	HomePage homeP=new HomePage(driver);
     	Assert.assertEquals(homeP.verifyUserIdName(), "Logged in as "+signUpName); 
-    	homeP.deleteAccnt();
-    	
-    	//Account Deleted
-    	DeletedAccountPage deletedPage=new DeletedAccountPage(driver);
-    	Assert.assertEquals(deletedPage.verifyAccntDeletedMsg(),"ACCOUNT DELETED!");
-    	deletedPage.clickContinue();
-    	
+//    	homeP.deleteAccnt();
+//    	
+//    	//Account Deleted
+//    	DeletedAccountPage deletedPage=new DeletedAccountPage(driver);
+//    	Assert.assertEquals(deletedPage.verifyAccntDeletedMsg(),"ACCOUNT DELETED!");
+//    	deletedPage.clickContinue();
+//    	
     }
     
     @Test(enabled=false)
@@ -763,7 +765,7 @@ public class AppTest extends BaseTest3{
     	Assert.assertEquals(deletedPage.verifyAccntDeletedMsg(),"ACCOUNT DELETED!");
     	deletedPage.clickContinue();
     	
-
+    	quitApp(driver);
     }
     
     @Test
@@ -792,6 +794,7 @@ public class AppTest extends BaseTest3{
      	System.out.println("isProductAvailable:"+isProductAvailable);
     	Assert.assertEquals(isProductAvailable, false);
     	
+    	quitApp(driver);
     }
     
     @Test
@@ -824,6 +827,166 @@ public class AppTest extends BaseTest3{
     	System.out.println("clothes name is displayed:"+selectedCategoryTitle.contains(clothesName));
     	Assert.assertTrue(selectedCategoryTitle.contains(categoryName1) && selectedCategoryTitle.contains(clothesName1.toUpperCase()));
     	
+    	quitApp(driver);
+    }
+    
+    @Test
+    public void testCases_19() {
+    	WebDriver driver=getDriver();
+    	LandingPage lp=new LandingPage(driver);
+    	String title=lp.verifyHomePage();
+    	Assert.assertTrue(title.contains("Automation Exercise"));
+    	
+    	lp.clickProductsBtn();
+    	
+    	ProductsPage pp=new ProductsPage(driver);
+    	Assert.assertEquals(pp.verifyBrandTextIsVisible(),"BRANDS");
+    	
+    	String BrandName="Allen Solly Junior";
+    	pp.clickOnBrandName(BrandName);
+    	BrandProductsPage bpp=new BrandProductsPage (driver);
+    	String selectedBrandTitle=bpp.verifySelectedBrandClothesNameIsVisible();
+    	System.out.println("selectedBrandTitle:"+selectedBrandTitle);
+    	System.out.println("Brand name is displayed:"+selectedBrandTitle.contains(BrandName));
+    	Assert.assertTrue(selectedBrandTitle.contains("BRAND") && selectedBrandTitle.contains(BrandName.toUpperCase()));
+    	
+    	quitApp(driver);
+    }
+    
+    @Test
+    public void testCases_20() {
+    
+    	WebDriver driver=getDriver();
+    	LandingPage lp=new LandingPage(driver);
+    	String title=lp.verifyHomePage();
+    	Assert.assertTrue(title.contains("Automation Exercise"));
+    	
+    	lp.clickProductsBtn();
+     
+    	ProductsPage pp=new ProductsPage(driver);
+    	title=pp.verifyProductsPage();
+    	Assert.assertTrue(title.contains("Products"));
+    	
+    	String searchProductName="jeans";
+    	pp.typeSearchProductName(searchProductName);
+    	pp.clickSearchProduct();
+    	System.out.println(pp.getProductSearchText());
+    	Assert.assertTrue(pp.getProductSearchText().contains("SEARCHED PRODUCTS"));
+    	List<String> getSearchProductList=new ArrayList<>();
+    	getSearchProductList=pp.getTheSearchedProducstInfo(searchProductName);
+    	//check the product list has search product name
+    	for(String productName:getSearchProductList)
+    	{
+    		System.out.println("Product list added is:"+productName);
+    		Assert.assertTrue(productName.toLowerCase().contains(searchProductName.toLowerCase()));
+    	}
+    	
+    	pp.addToCartSearchProducts(searchProductName);
+    	
+    	HomePage hp =new HomePage(driver);
+    	hp.clickCartButton();
+    	
+    	CartPage cp=new CartPage(driver);
+    	getSearchProductList=cp.getAddedProductDetails();
+  
+    	System.out.println("Before Login search Product added in the cart:"+cp.getAddedProductCount());
+    	
+    	for(String productName:getSearchProductList)
+    	{
+    		Assert.assertTrue(productName.toLowerCase().contains(searchProductName.toLowerCase()));
+    	}
+    	
+    	lp.clickSignUpOrLoginBtn();
+    	String loginName="Masood";
+    	String loginEmail="Masood1@gmail.com";
+    	String password="masood";
+    	LoginPage loginP=new LoginPage(driver);
+    	
+    	Assert.assertEquals(loginP.verifyLoginText(), "Login to your account");
+    	loginP.enterLoginEmailId(loginEmail);
+    	loginP.enterLoginPassword(password);
+    	loginP.clickLoginBtn();
+    	
+    	//Home Page
+    	HomePage homeP=new HomePage(driver);
+    	Assert.assertEquals(homeP.verifyUserIdName(), "Logged in as "+loginName); 
+    	
+    	hp.clickCartButton();
+    	
+    	getSearchProductList=cp.getAddedProductDetails();
+    	  
+    	for(String productName:getSearchProductList)
+    	{
+    		Assert.assertTrue(productName.toLowerCase().contains(searchProductName.toLowerCase()));
+    	}
+  
+    	System.out.println("After Login search Product added in the cart:"+cp.getAddedProductCount());
+    	
+    	quitApp(driver);
+    }
+    
+    @Test
+    public void testCases_21() {
+    	
+    	WebDriver driver=getDriver();
+    	LandingPage lp=new LandingPage(driver);
+    	String title=lp.verifyHomePage();
+    	Assert.assertTrue(title.contains("Automation Exercise"));
+    	lp.clickProductsBtn();
+    	
+    	ProductsPage pp=new ProductsPage(driver);
+    	title=pp.verifyProductsPage();
+    	Assert.assertTrue(title.contains("Products"));
+    	String productName="Pure Cotton V-Neck T-Shirt";
+    	pp.clickOnViewProduct(productName);
+    	
+    	ProductsDetailsPage pdp=new ProductsDetailsPage(driver);
+    	Assert.assertEquals(pdp.verifyWriteYourReviewText(), "WRITE YOUR REVIEW"); 
+    	
+    	String inputName="Masood";
+    	String inputEmailAddress="masood1@gmail.com";
+    	String inputReview="Product Name";
+    	
+    	pdp.typeInputName(inputName);
+    	pdp.typeEmailAddress(inputEmailAddress);
+    	pdp.typeReview(inputReview);
+    	pdp.clickReviewSubmitBtn();
+    	
+    	Assert.assertTrue(pdp.verifySuccessMessage().contains("Thank you for your review"));
+    	quitApp(driver);
+    	
+    }
+    
+    @Test
+    public void testCases_22() {
+    	
+    	WebDriver driver=getDriver();
+    	LandingPage lp=new LandingPage(driver);
+    	String title=lp.verifyHomePage();
+    	Assert.assertTrue(title.contains("Automation Exercise"));
+    	
+    	HomePage hp=new HomePage(driver);
+    	hp.moveToRecommendedItemsSection();
+    	
+    	Assert.assertEquals(hp.verifyRecommendedItemsText().toLowerCase(),"recommended items");
+    	
+    	hp.getRecommendedProductList();
+    	
+    	hp.clickCartButton();
+    	
+    	List<String> getSearchProductList=new ArrayList<>();
+    	CartPage cp=new CartPage(driver);
+    	
+    	getSearchProductList=cp.getAddedProductDetails();
+    	  
+    	System.out.println("Recommneded Product added in the cart:"+cp.getAddedProductCount());
+    	
+    	for(String productName:getSearchProductList)
+    	{
+    		System.out.println(productName);
+    	}
+    	
+    	
     }
     
     //This test case helps to demonstrate the generic way of adding the products
@@ -847,6 +1010,8 @@ public class AppTest extends BaseTest3{
     	pp.addToCartProduct(productName1);
     	pp.clickContinueShopping();
     	
- 	
+    	
+    	
+    	
     }
 }
