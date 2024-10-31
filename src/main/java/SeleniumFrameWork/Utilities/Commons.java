@@ -2,7 +2,7 @@ package SeleniumFrameWork.Utilities;
 
 
 import java.time.Duration;
-
+import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -69,5 +69,10 @@ public class Commons {
 	{
 		WebDriverWait wait =new WebDriverWait(driver,Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.urlContains(url));
+	}
+	
+	public void waitForElementsTobeVisible(List <WebElement> ele) {
+		WebDriverWait wait =new WebDriverWait(driver,Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.visibilityOfAllElements(ele));
 	}
 }

@@ -82,4 +82,34 @@ public class CheckoutPage extends Commons{
 	  
   }
   
+  	public List getDeliveryAddress() {
+  	
+  		 List<String> deliveryAddressDetails=new ArrayList<String>();
+  		 for(WebElement ele:deliveryAddressDetailsList)
+  		 {
+  			 if(!ele.getAttribute("class").contains("address_title"))
+  			 {
+  				 System.out.println(ele.getText());
+  				 deliveryAddressDetails.add(ele.getText());
+  			 }
+  		 }
+  		
+  		 return deliveryAddressDetails;
+  }
+  	
+  	public List getBillingAddress() {
+  	  	
+  		List<String> invoiceAddressDetails=new ArrayList<String>();
+  		for(WebElement ele:invoiceAddressDetailsList)
+  		{
+		  if(!ele.getAttribute("class").contains("address_title"))
+		  {
+			  System.out.println(ele.getText());
+			  invoiceAddressDetails.add(ele.getText());
+		  }
+  		}
+	  
+ 		 return invoiceAddressDetails;
+ }
+  
 }

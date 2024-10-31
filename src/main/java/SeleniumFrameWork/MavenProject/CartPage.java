@@ -90,14 +90,17 @@ public class CartPage extends Commons{
    	 return getAddedProductsCount.size();
    }
    
-   public void getAddedProductDetails() {
-   	
+   public List<String> getAddedProductDetails() {
+	   
+	   List<String> addSearchProductListsDisplayedInCart=new ArrayList<>();
+	   
 	   for (WebElement ele:getAddedProductsDetailsList)
 	   {
 	   	
 		   	if(ele.getAttribute("class").contains("cart_description"))
 		   	{
 		   		System.out.println(ele.getText());
+		   		addSearchProductListsDisplayedInCart.add(ele.getText());
 		   	}
 		   	else if(ele.getAttribute("class").contains("cart_price"))
 		   	{
@@ -113,6 +116,8 @@ public class CartPage extends Commons{
 		   	}
 	   	
 	   	}
+	   
+	   return addSearchProductListsDisplayedInCart;
 	  	
   }
    
