@@ -2,6 +2,7 @@ package SeleniumFrameWork.MavenProject;
 
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -584,7 +585,7 @@ public class AppTest extends BaseTest3{
     	Assert.assertEquals(signUpText, "New User Signup!");
     	//User Information
     	String signUpName="Masood";
-    	String signUpEmail="Masood9@gmail.com";
+    	String signUpEmail="Masood1@gmail.com";
     	String gender="Mr";
     	String password="masood";
     	String dob="15-November-1999";
@@ -989,6 +990,298 @@ public class AppTest extends BaseTest3{
     	
     	
     }
+    
+    @Test
+    public void testCases_23() {
+    	
+    	//TestCases_23 is same as test case 15
+
+    	WebDriver driver=getDriver();
+    	
+    	LandingPage lp=new LandingPage(driver);
+    	String title=lp.verifyHomePage();
+    	Assert.assertTrue(title.contains("Automation Exercise"));
+    	
+    	lp.clickSignUpOrLoginBtn();
+
+    	LoginPage loginP=new LoginPage(driver);
+    	String signUpText=loginP.verifySignUpText();
+    	Assert.assertEquals(signUpText, "New User Signup!");
+    	//User Information
+    	String signUpName="Masood";
+    	String signUpEmail="Masood1@gmail.com";
+    	String gender="Mr";
+    	String password="masood";
+    	String dob="15-November-1999";
+    	String fName="Masood";
+    	String lName="Ahmed";
+    	String company="Masood Automation Tester";
+    	String address1="XYZ";
+    	String address2="USA";
+    	String country="United States";
+    	String state="California";
+    	String city="Sans Francisco";
+    	String zipCode="8984";
+    	String mobileNo="+1-790-888-588";
+    	
+    	loginP.enterSignUpName(signUpName);
+    	loginP.enterSignUpEmailId(signUpEmail);
+    	loginP.clickSignUpBtn();
+    	
+    	
+    	SignUpPage signUpP=new SignUpPage(driver);
+    	String signUpInfoText=signUpP.verifySignUpText();
+    	Assert.assertEquals(signUpInfoText, "ENTER ACCOUNT INFORMATION");
+    	signUpP.clickTitle(gender);
+    	Assert.assertEquals(signUpP.getUserName(),signUpName);
+    	Assert.assertEquals(signUpP.getUserEmailId(),signUpEmail);
+    	signUpP.enterPassword(password);
+    	signUpP.selectDOB(dob);
+    	signUpP.clickSignupLetters();
+    	signUpP.clickSpecialOffers();
+    	
+    	//Address Information
+    	signUpP.enterFName(fName);
+    	signUpP.enterLName(lName);
+    	signUpP.enterCompanyName(company);
+    	signUpP.enterAddress1(address1);
+    	signUpP.enterAddress2(address2);
+    	signUpP.selectCountry(country);
+    	signUpP.enterState(state);
+    	signUpP.enterCity(city);
+    	signUpP.enterZipCode(zipCode);
+    	signUpP.enterMobileNumber(mobileNo);
+    	signUpP.createAccount();
+    	
+    	//Account Created Page
+    	AccountCreatedPage accntPage=new AccountCreatedPage(driver);
+     	Assert.assertEquals(accntPage.verifyAccntCreatedMessag(),"ACCOUNT CREATED!");
+     	accntPage.clickContinue();
+    	
+    	//Home Page
+    	HomePage homeP=new HomePage(driver);
+    	Assert.assertEquals(homeP.verifyUserIdName(), "Logged in as "+signUpName); 
+    	
+    	String productName="Beautiful Peacock Blue Cotton Linen Saree";
+    	homeP.addToCartProduct(productName);
+    	homeP.clickContinueShopping();
+    	homeP.clickCartButton();	
+    	
+    	CartPage cp=new CartPage(driver);
+    	String cartPageTitle= cp.verifyHomePage();
+    	Assert.assertTrue(cartPageTitle.contains("Checkout"));
+    	
+    	cp.clickProceedToCheckout();
+    	
+
+    	String Comment="Try to Deiver the order by monday";
+    	
+    	CheckoutPage cop=new CheckoutPage(driver);
+    	cop.verifyAddressAndReviewOrderAreSame();
+    	
+    	List<String> deliverAddresses=cop.getDeliveryAddress();
+    	List<String> invoiceBillingAddresses=cop.getBillingAddress();
+    	
+    	 System.out.println("Verify the Delivery Address");
+    	 for(String deliverAddress:deliverAddresses)
+    	 {
+    		 if (deliverAddress.contains(address1))
+    		 {
+    			 System.out.println(deliverAddress+" addess1 is found");
+    		 }
+    		 else if(deliverAddress.contains(address2))
+    		 {
+    			 System.out.println(deliverAddress+ " addess2 is found");
+    		 }
+    		 else if(deliverAddress.contains(country))
+    		 {
+    			 System.out.println(deliverAddress+" country is found");
+    		 }
+    		 else if(deliverAddress.contains(state) && deliverAddress.contains(city) && deliverAddress.contains(zipCode))
+    		 {
+    			 System.out.println(deliverAddress+" State,City & Zipcode are found");
+    		 }
+    		 else
+    		 {
+    			 System.out.println("Not Found" +deliverAddress);
+    		 }
+    	 }
+    	
+    	 
+    	 System.out.println("Verify the Invoice Billing Address");
+    	 for(String invoiceBillingAddress:invoiceBillingAddresses)
+    	 {
+    		 if (invoiceBillingAddress.contains(address1))
+    		 {
+    			 System.out.println(invoiceBillingAddress+" addess1 is found");
+    		 }
+    		 else if(invoiceBillingAddress.contains(address2))
+    		 {
+    			 System.out.println(invoiceBillingAddress+ " addess2 is found");
+    		 }
+    		 else if(invoiceBillingAddress.contains(country))
+    		 {
+    			 System.out.println(invoiceBillingAddress+" country is found");
+    		 }
+    		 else if(invoiceBillingAddress.contains(state) && invoiceBillingAddress.contains(city) && invoiceBillingAddress.contains(zipCode))
+    		 {
+    			 System.out.println(invoiceBillingAddress+" State,City & Zipcode are found");
+    		 }
+    		 else
+    		 {
+    			 System.out.println("Not Found" +invoiceBillingAddress);
+    		 }
+    	 }
+
+    	HomePage hp=new HomePage(driver); 
+//    	hp.deleteAccnt();
+//    	
+//    	//Account Deleted
+//    	DeletedAccountPage deletedPage=new DeletedAccountPage(driver);
+//    	Assert.assertEquals(deletedPage.verifyAccntDeletedMsg(),"ACCOUNT DELETED!");
+//    	deletedPage.clickContinue();
+//    	
+//    	quitApp(driver);
+//    	
+
+    }
+    
+    @Test
+    public void testCases_24() {
+    	
+
+    	WebDriver driver=getDriver();
+    	
+    	LandingPage lp=new LandingPage(driver);
+    	String title=lp.verifyHomePage();
+    	Assert.assertTrue(title.contains("Automation Exercise"));
+    	
+    	String productName="Beautiful Peacock Blue Cotton Linen Saree";
+    	lp.addToCartProduct(productName);
+    	lp.clickContinueShopping();
+    	lp.clickCartButton();
+    	
+    	CartPage cp=new CartPage(driver);
+    	String cartPageTitle= cp.verifyHomePage();
+    	Assert.assertTrue(cartPageTitle.contains("Checkout"));
+    	
+    	cp.clickProceedToCheckout();
+    	cp.clickRegisterOrLoginBtn();
+    	
+    	LoginPage loginP=new LoginPage(driver);
+    	String signUpText=loginP.verifySignUpText();
+    	Assert.assertEquals(signUpText, "New User Signup!");
+    	//User Information
+    	String signUpName="Masood";
+    	String signUpEmail="Masood1@gmail.com";
+    	String gender="Mr";
+    	String password="masood";
+    	String dob="15-November-1999";
+    	String fName="Masood";
+    	String lName="Ahmed";
+    	String company="Masood Automation Tester";
+    	String address1="XYZ";
+    	String address2="USA";
+    	String country="United States";
+    	String state="California";
+    	String city="Sans Francisco";
+    	String zipCode="8984";
+    	String mobileNo="+1-790-888-588";
+    	
+    	loginP.enterSignUpName(signUpName);
+    	loginP.enterSignUpEmailId(signUpEmail);
+    	loginP.clickSignUpBtn();
+    	
+    	SignUpPage signUpP=new SignUpPage(driver);
+    	String signUpInfoText=signUpP.verifySignUpText();
+    	Assert.assertEquals(signUpInfoText, "ENTER ACCOUNT INFORMATION");
+    	signUpP.clickTitle(gender);
+    	Assert.assertEquals(signUpP.getUserName(),signUpName);
+    	Assert.assertEquals(signUpP.getUserEmailId(),signUpEmail);
+    	signUpP.enterPassword(password);
+    	signUpP.selectDOB(dob);
+    	signUpP.clickSignupLetters();
+    	signUpP.clickSpecialOffers();
+    	
+    	//Address Information
+    	signUpP.enterFName(fName);
+    	signUpP.enterLName(lName);
+    	signUpP.enterCompanyName(company);
+    	signUpP.enterAddress1(address1);
+    	signUpP.enterAddress2(address2);
+    	signUpP.selectCountry(country);
+    	signUpP.enterState(state);
+    	signUpP.enterCity(city);
+    	signUpP.enterZipCode(zipCode);
+    	signUpP.enterMobileNumber(mobileNo);
+    	signUpP.createAccount();
+    	
+    	//Account Created Page
+    	AccountCreatedPage accntPage=new AccountCreatedPage(driver);
+     	Assert.assertEquals(accntPage.verifyAccntCreatedMessag(),"ACCOUNT CREATED!");
+     	accntPage.clickContinue();
+    	
+     	//Home Page
+    	HomePage homeP=new HomePage(driver);
+    	Assert.assertEquals(homeP.verifyUserIdName(), "Logged in as "+signUpName); 
+    	
+    	lp.clickCartButton();
+    	cp.clickProceedToCheckout();
+    	
+    	String Comment="Try to Deiver the order by monday";
+    	
+    	CheckoutPage cop=new CheckoutPage(driver);
+    	cop.verifyAddressAndReviewOrderAreSame();
+    	cop.typeComment(Comment);
+    	cop.clickplaceOrderBtn();
+    	
+    	PaymentPage pp=new PaymentPage(driver);
+    	String cardHolderName="Masood";
+    	String cardNumber="8787 8977 7863";
+    	String cardCVC="555";
+    	String cardExpiryMonth="10";
+    	String cardExpiryYear="2026";
+    	
+    	pp.typeCardHolderName(cardHolderName);
+    	pp.typeCardNumber(cardNumber);
+    	pp.typeCardCVC(cardCVC);
+    	pp.typeCardExpiryMonth(cardExpiryMonth);
+    	pp.typeCardExpiryYear(cardExpiryYear);
+
+    	String orderSuccessMessage=pp.clickPayAndConfirmOrderMessage();
+    	Assert.assertTrue(orderSuccessMessage.contains("successfully!"));
+
+    	
+    	PaymentDonePage pdp=new PaymentDonePage(driver);
+    	String orderConfimationMessage=pdp.verifyOrderConfirmationMessage();
+    	Assert.assertEquals(orderConfimationMessage, "Congratulations! Your order has been confirmed!");
+    	pdp.clickDownloadInvoice();
+    	pdp.clickContinueBtn();
+    	
+    	//check downloaded file exists or not
+    	File file=new File("C:/Users/New//Downloads/invoice.txt");
+    	
+    	if(file.exists())
+    	{
+    		System.out.println("Invoice File downloaded successfully");
+    	}
+    	else
+    	{
+    		System.out.println("Invoice File is not found");
+    	}
+    	
+    	HomePage hp=new HomePage(driver); 
+    	hp.deleteAccnt();
+    	
+    	//Account Deleted
+    	DeletedAccountPage deletedPage=new DeletedAccountPage(driver);
+    	Assert.assertEquals(deletedPage.verifyAccntDeletedMsg(),"ACCOUNT DELETED!");
+    	deletedPage.clickContinue();
+
+    	quitApp(driver);
+
+    }
+    
     
     //This test case helps to demonstrate the generic way of adding the products
     @Test

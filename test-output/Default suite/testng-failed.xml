@@ -6,8 +6,8 @@
       <class name="SeleniumFrameWork.MavenProject.AppTest">
         <methods>
           <include name="clearExtentReport"/>
-          <include name="testCases_22"/>
           <include name="quitAppResults"/>
+          <include name="testCases_23"/>
           <include name="extentsetup"/>
           <include name="setupTestResults"/>
           <include name="SetupApp"/>

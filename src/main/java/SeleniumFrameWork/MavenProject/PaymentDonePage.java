@@ -38,13 +38,21 @@ public class PaymentDonePage extends Commons{
     @FindBy(css="p[style*='garamond']")
     WebElement orderConfirmationMessageSuccess;
     
+    @FindBy(xpath="//a[contains(text(),'Download Invoice')]")
+    WebElement downloadInvoiceBtn;
+    
   public void clickContinueBtn() {
 	  
 	  ClickBtn(continueBtn);
+  }
+  
+  public void clickDownloadInvoice() {
+	  ClickBtn(downloadInvoiceBtn);
   }
   
   public String verifyOrderConfirmationMessage() {
 		 
 		 return orderConfirmationMessageSuccess.getText();
 	 }
+  
 }
