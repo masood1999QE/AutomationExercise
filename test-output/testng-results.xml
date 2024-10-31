@@ -2,20 +2,20 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-10-28T02:29:11 IST" name="Default suite" finished-at="2024-10-28T02:29:27 IST" duration-ms="16474">
+  <suite started-at="2024-10-31T20:52:56 IST" name="Default suite" finished-at="2024-10-31T20:53:13 IST" duration-ms="17923">
     <groups>
     </groups>
-    <test started-at="2024-10-28T02:29:11 IST" name="Default test" finished-at="2024-10-28T02:29:27 IST" duration-ms="16474">
+    <test started-at="2024-10-31T20:52:56 IST" name="Default test" finished-at="2024-10-31T20:53:13 IST" duration-ms="17923">
       <class name="SeleniumFrameWork.MavenProject.AppTest">
-        <test-method is-config="true" signature="extentsetup()[pri:0, instance:SeleniumFrameWork.MavenProject.AppTest@1cf6d1be]" started-at="2024-10-28T02:29:11 IST" name="extentsetup" finished-at="2024-10-28T02:29:11 IST" duration-ms="270" status="PASS">
+        <test-method is-config="true" signature="extentsetup()[pri:0, instance:SeleniumFrameWork.MavenProject.AppTest@1cf6d1be]" started-at="2024-10-31T20:52:56 IST" name="extentsetup" finished-at="2024-10-31T20:52:56 IST" duration-ms="231" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- extentsetup -->
-        <test-method is-config="true" signature="SetupApp()[pri:0, instance:SeleniumFrameWork.MavenProject.AppTest@1cf6d1be]" started-at="2024-10-28T02:29:11 IST" name="SetupApp" finished-at="2024-10-28T02:29:20 IST" duration-ms="8478" status="PASS">
+        <test-method is-config="true" signature="SetupApp()[pri:0, instance:SeleniumFrameWork.MavenProject.AppTest@1cf6d1be]" started-at="2024-10-31T20:52:56 IST" name="SetupApp" finished-at="2024-10-31T20:53:05 IST" duration-ms="8808" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- SetupApp -->
-        <test-method is-config="true" signature="setupTestResults(org.testng.ITestResult)[pri:0, instance:SeleniumFrameWork.MavenProject.AppTest@1cf6d1be]" started-at="2024-10-28T02:29:20 IST" name="setupTestResults" finished-at="2024-10-28T02:29:20 IST" duration-ms="8" status="PASS">
+        <test-method is-config="true" signature="setupTestResults(org.testng.ITestResult)[pri:0, instance:SeleniumFrameWork.MavenProject.AppTest@1cf6d1be]" started-at="2024-10-31T20:53:05 IST" name="setupTestResults" finished-at="2024-10-31T20:53:05 IST" duration-ms="14" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -26,11 +26,11 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setupTestResults -->
-        <test-method signature="testCases_22()[pri:0, instance:SeleniumFrameWork.MavenProject.AppTest@1cf6d1be]" started-at="2024-10-28T02:29:20 IST" name="testCases_22" finished-at="2024-10-28T02:29:27 IST" duration-ms="7400" status="PASS">
+        <test-method signature="testCases_22()[pri:0, instance:SeleniumFrameWork.MavenProject.AppTest@1cf6d1be]" started-at="2024-10-31T20:53:05 IST" name="testCases_22" finished-at="2024-10-31T20:53:13 IST" duration-ms="8420" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testCases_22 -->
-        <test-method is-config="true" signature="quitAppResults(org.testng.ITestResult)[pri:0, instance:SeleniumFrameWork.MavenProject.AppTest@1cf6d1be]" started-at="2024-10-28T02:29:27 IST" name="quitAppResults" finished-at="2024-10-28T02:29:27 IST" duration-ms="7" status="PASS">
+        <test-method is-config="true" signature="quitAppResults(org.testng.ITestResult)[pri:0, instance:SeleniumFrameWork.MavenProject.AppTest@1cf6d1be]" started-at="2024-10-31T20:53:13 IST" name="quitAppResults" finished-at="2024-10-31T20:53:13 IST" duration-ms="7" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -41,7 +41,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- quitAppResults -->
-        <test-method is-config="true" signature="clearExtentReport()[pri:0, instance:SeleniumFrameWork.MavenProject.AppTest@1cf6d1be]" started-at="2024-10-28T02:29:27 IST" name="clearExtentReport" finished-at="2024-10-28T02:29:27 IST" duration-ms="272" status="PASS">
+        <test-method is-config="true" signature="clearExtentReport()[pri:0, instance:SeleniumFrameWork.MavenProject.AppTest@1cf6d1be]" started-at="2024-10-31T20:53:13 IST" name="clearExtentReport" finished-at="2024-10-31T20:53:13 IST" duration-ms="403" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- clearExtentReport -->

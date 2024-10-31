@@ -970,7 +970,8 @@ public class AppTest extends BaseTest3{
     	
     	Assert.assertEquals(hp.verifyRecommendedItemsText().toLowerCase(),"recommended items");
     	
-    	hp.getRecommendedProductList();
+    	
+    	hp.getRecommendedProductListUpdate();
     	
     	hp.clickCartButton();
     	

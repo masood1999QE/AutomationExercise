@@ -55,7 +55,7 @@ public class HomePage extends Commons{
 	@FindBy(xpath="//h2[contains(text(),'recommended items')]")
 	WebElement recommendedItemsText;
 	
-	@FindBy(xpath="//h2[contains(text(),'recommended items')]/following-sibling::div//div[contains(@class,'item')]/div")
+	@FindBy(xpath="//h2[contains(text(),'recommended items')]/following-sibling::div//div[contains(@class,'item active')]/div")
 	List<WebElement> recommendedProductLists;
 	
 	@FindBy(css="a[class*='recommended-item-control'][data-slide='next']")
@@ -142,18 +142,49 @@ public class HomePage extends Commons{
 	    	return recommendedItemsText.getText();
 	    	
 	    }
-
-	    public void getRecommendedProductList() {
+  
+	    //correct usage
+	    static String checkFirstProductIsAdded="";
+	    public void getRecommendedProductListUpdate() {
 	    	
-	    	HashMap<String,Integer> recommendedproductsMap=new HashMap<String,Integer>();
-	    	String productName="";
 	    	System.out.println("size:"+recommendedProductLists.size());
 	    	Actions act=new Actions(driver);
 	    	act.scrollByAmount(0, 400).build().perform();
+	    	
+	    	addCartOnRecommendedProducts(recommendedProductLists);
+	    	
+	    	rightCarouselBtn.click();
+	    	
+	    	System.out.println("****************After clicking on the carousel*************");
+   	
+	    	addCartOnRecommendedProducts(recommendedProductLists);
+	    	
+	    	
+	    	
+	    }
+	    
+	    public void addCartOnRecommendedProducts(List <WebElement>recommendedProductLists) {
+	    	
+	    	String productName="";
+	    	String firstProducInCarousel=recommendedProductLists.get(0).findElement(By.xpath(".//p")).getAttribute("innerText").trim();
+	    	System.out.println("zero index object :"+ firstProducInCarousel);
+	    
+	    	while(!checkFirstProductIsAdded.isEmpty() && checkFirstProductIsAdded.contains(firstProducInCarousel))
+	    	{
+	    		System.out.println("Refresh the Element");
+	    		firstProducInCarousel=recommendedProductLists.get(0).findElement(By.xpath(".//p")).getAttribute("innerText").trim();
+	    		System.out.println("After retry the elements:"+firstProducInCarousel);
+	    	}
+	    	
+	    	if(checkFirstProductIsAdded.isEmpty())
+	    	{
+	    		 checkFirstProductIsAdded= firstProducInCarousel;
+	    	}
+	    	System.out.println("checkFirstProductIsAdded:"+checkFirstProductIsAdded);
+	    	
 	    	for(WebElement ele:recommendedProductLists)
 	    	{
-	    		//System.out.println("Before Try ProductName:"+ele.getTagName());
-	    		//System.out.println("tagName:"+ele.findElement(By.xpath(".//p")).getTagName());
+	    		
 	    		System.out.println("text:"+ele.findElement(By.xpath(".//p")).getAttribute("innerText"));
 	    		try {
 	    		productName=ele.findElement(By.xpath(".//p")).getAttribute("innerText").trim();
@@ -165,26 +196,24 @@ public class HomePage extends Commons{
 	    			System.out.println("Inside Catch");
 	    			rightCarouselBtn.click();
 	    			productName=ele.findElement(By.xpath(".//p")).getAttribute("innerText").trim();
-	    		}		
-		    	
-		    	System.out.println("ProductName:"+productName);
+	    		}	
+	    		
+	    		System.out.println("ProductName:"+productName);
 		    	WebElement element= ele.findElement(By.xpath(".//a[contains(text(),'Add to cart')]"));
-		    	//WebElement element= ele.findElement(By.xpath(".//a"));
+		    	
 		    	System.out.println("A Tag::"+element.getTagName());
 		    	System.out.println("A tag Id:"+element.getAttribute("data-product-id"));
 		    	
-		    	//waitForElementToBeClickable(element);
+		    	
 		    	System.out.println("A tag Size"+element.getSize());
 		    	System.out.println("A Tag::"+element.getTagName());
 		    	System.out.println("A Class::"+element.getAttribute("class"));
 		    	JavascriptExecutor js =(JavascriptExecutor) driver;
-//		    	js.executeScript("arguments[0].scrollIntoView(true)",element);
+
 		    	js.executeScript("arguments[0].click()",element );
-		    	//element.click();
-		    	recommendedproductsMap.put(productName, recommendedproductsMap.getOrDefault(productName, 0)+1);
+		    	
 		    	clickContinueShopping();
-	    		
 	    	}
-	    	
+	    
 	    }
 }
