@@ -3,6 +3,8 @@ package SeleniumFrameWork.MavenProject;
 
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -1148,7 +1150,7 @@ public class AppTest extends BaseTest3{
     }
     
     @Test
-    public void testCases_24() {
+    public void testCases_24() throws IOException {
     	
 
     	WebDriver driver=getDriver();
@@ -1261,10 +1263,22 @@ public class AppTest extends BaseTest3{
     	
     	//check downloaded file exists or not
     	File file=new File("C:/Users/New//Downloads/invoice.txt");
-    	
+    	FileInputStream fs =new FileInputStream(file);
     	if(file.exists())
     	{
     		System.out.println("Invoice File downloaded successfully");
+    		System.out.println("Read File Data");
+    		int i ;
+    		StringBuffer sb=new StringBuffer();
+    		while((i=fs.read())!=-1)
+    		{
+    			sb.append((char)i);
+    		}
+    		System.out.println("Final Append String is :"+sb);
+    		
+    		Assert.assertTrue(sb.toString().contains("Hi Masood Ahmed, Your total purchase amount is"));
+    		Assert.assertTrue(sb.toString().contains("Thank you"));
+    		fs.close();
     	}
     	else
     	{
