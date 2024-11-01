@@ -74,6 +74,12 @@ public class LandingPage extends  Commons{
 	
 	@FindBy(xpath="//button[text()='Continue Shopping']")
 	WebElement continueShoppingbtnModal;
+	
+	@FindBy(css="a[href*='top']")
+	WebElement scrollUpBtn;
+	
+	@FindBy(xpath="//*[contains(text(),'Full-Fledged practice website for Automation Engineers')]")
+	WebElement landingPageMainCarouselText;
     
     public void typeInput(String inputs)
     {
@@ -164,6 +170,27 @@ public class LandingPage extends  Commons{
     	ClickBtn(continueShoppingbtnModal);
     	
     	
+    }
+    
+    public void scrollToSubscriptionText() {
+    	
+    	Actions act=new Actions(driver);
+    	act.scrollToElement(subscriptionText).build().perform();
+    }
+    
+    public void scrollToMiddleCarouselText() {
+    	Actions act=new Actions(driver);
+    	act.scrollToElement(landingPageMainCarouselText).build().perform();
+    	
+    }
+    
+    public void  clickOnScrollUpBtn() {
+    	ClickBtn(scrollUpBtn);
+    }
+    
+    public String verifyMiddleCarouselText() {
+    	
+    	return  landingPageMainCarouselText.getText();
     }
     
 }

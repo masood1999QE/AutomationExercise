@@ -1297,7 +1297,38 @@ public class AppTest extends BaseTest3{
 
     }
     
+    @Test
+    public void testCases_25() {
+    	
+    	WebDriver driver=getDriver();
+    	LandingPage lp=new LandingPage(driver);
+    	String title=lp.verifyHomePage();
+    	Assert.assertTrue(title.contains("Automation Exercise"));
+    	
+    	lp.scrollToSubscriptionText();
+    	lp.clickOnScrollUpBtn();
+    	
+    	Assert.assertEquals(lp.verifyMiddleCarouselText(),"Full-Fledged practice website for Automation Engineers");
+    	
+    }
     
+    @Test
+    public void testCases_26() {
+    	
+
+    	WebDriver driver=getDriver();
+    	LandingPage lp=new LandingPage(driver);
+    	String title=lp.verifyHomePage();
+    	Assert.assertTrue(title.contains("Automation Exercise"));
+    	
+    	lp.scrollToSubscriptionText();
+    	Assert.assertEquals(lp.verifySubscriptionText(),"SUBSCRIPTION");
+    	// scroll up without using button
+    	lp.scrollToMiddleCarouselText();
+    	
+    	Assert.assertEquals(lp.verifyMiddleCarouselText(),"Full-Fledged practice website for Automation Engineers");
+    	
+    }
 
     //This test case helps to demonstrate the generic way of adding the products
     @Test
